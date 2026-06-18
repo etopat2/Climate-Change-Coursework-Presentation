@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Technologies for Climate Action | Victoria University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a1628, #1a2f3f);
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+        
+        .presentation-wrapper {
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 900px;
+            background: #0d1f2e;
+            border-radius: 28px;
+            padding: 18px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-viewport {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #f0f4f9;
+            flex: 1;
+            min-height: 0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+        }
+        
+        .slides-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+        }
+        
+        .slide {
+            flex: 0 0 100%;
+            height: 100%;
+            padding: 28px 40px;
+            display: flex;
+            flex-direction: column;
+            background: #f0f4f9;
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        .slide::-webkit-scrollbar {
+            width: 4px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: #e0e6ed;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: #c89b3c;
+            border-radius: 10px;
+        }
+        .slide-dark::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        .slide-dark::-webkit-scrollbar-thumb {
+            background: #c89b3c;
+        }
+        
+        /* Slide Themes */
+        .slide-dark {
+            background: linear-gradient(145deg, #0a1a28, #132b3e);
+            color: #f0f6fc;
+        }
+        .slide-dark h1, .slide-dark h2, .slide-dark h3, .slide-dark h4 {
+            color: #ffffff;
+        }
+        .slide-dark .card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .slide-dark .card p, .slide-dark .card li {
+            color: #c8d8e8;
+        }
+        
+        .slide-brand {
+            background: linear-gradient(135deg, #002b4f 0%, #0a3b5e 50%, #1a4a6a 100%);
+            color: #fff;
+        }
+        .slide-brand h1, .slide-brand h2 {
+            color: #fff;
+        }
+        
+        .slide-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1.08;
+            margin-bottom: 0.2rem;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.05rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 1.2rem;
+        }
+        
+        .badge-vu {
+            background: #c89b3c;
+            color: #0b1a2f;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.8px;
+            display: inline-block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .vu-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .vu-logo .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #c89b3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #0b1a2f;
+        }
+        .vu-logo .logo-text {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .vu-logo .logo-text span {
+            color: #c89b3c;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        .card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #0d1f2e;
+        }
+        .card p, .card li {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: #2d4055;
+        }
+        .card i.fa, .card i.fas, .card i.fab {
+            color: #c89b3c;
+            margin-right: 6px;
+        }
+        
+        .stat-number {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #c89b3c;
+            line-height: 1;
+        }
+        
+        .list-icon {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-icon li {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .list-icon li i {
+            width: 18px;
+            color: #c89b3c;
+            font-size: 0.85rem;
+        }
+        
+        .logo-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 16px;
+        }
+        .logo-item {
+            background: rgba(255,255,255,0.92);
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #0d1f2e;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .infographic-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 0;
+            flex: 1;
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .infographic-box .flow-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .infographic-box .flow-item {
+            background: rgba(255,255,255,0.06);
+            padding: 8px 14px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-width: 80px;
+            flex: 1;
+        }
+        .infographic-box .flow-item i {
+            font-size: 1.4rem;
+            color: #c89b3c;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .infographic-box .flow-item h5 {
+            color: #fff;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+        }
+        .infographic-box .flow-item p {
+            color: #9ab0c0;
+            font-size: 0.65rem;
+        }
+        .infographic-box .flow-arrow {
+            color: #c89b3c;
+            font-size: 1.2rem;
+        }
+        
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #5b6f83;
+            flex-shrink: 0;
+        }
+        .slide-dark .slide-footer {
+            border-color: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 4px 0;
+            flex-shrink: 0;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-btn:hover {
+            background: #c89b3c;
+            border-color: #c89b3c;
+            color: #0b1a2f;
+        }
+        .nav-btn:disabled {
+            opacity: 0.25;
+            pointer-events: none;
+        }
+        
+        .slide-counter {
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding-top: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .toolbar-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #b0c4d8;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .toolbar-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        
+        .speaker-note {
+            background: #e8edf4;
+            border-radius: 12px;
+            padding: 10px 16px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #1a2c3e;
+            border-left: 4px solid #c89b3c;
+            display: none;
+            flex-shrink: 0;
+        }
+        .speaker-note.show {
+            display: block;
+        }
+        
+        .mt-1 { margin-top: 8px; }
+        .mt-2 { margin-top: 16px; }
+        .mb-1 { margin-bottom: 6px; }
+        .mb-2 { margin-bottom: 14px; }
+        .text-center { text-align: center; }
+        .flex-1 { flex: 1; }
+        .gap-2 { gap: 10px; }
+        .w-full { width: 100%; }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .slide { padding: 22px 28px; }
+            .slide-title { font-size: 2.2rem; }
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+            .stat-number { font-size: 2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 8px; }
+            .presentation-wrapper { padding: 10px; border-radius: 20px; max-height: none; }
+            .slide { padding: 16px 18px; }
+            .slide-title { font-size: 1.8rem; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 12px; }
+            .logo-row { gap: 8px; }
+            .logo-item { padding: 4px 12px; font-size: 0.7rem; }
+            .card { padding: 12px 14px; }
+            .card h4 { font-size: 0.9rem; }
+            .card p, .card li { font-size: 0.75rem; }
+            .stat-number { font-size: 1.6rem; }
+            .nav-btn { padding: 6px 16px; font-size: 0.7rem; }
+            .toolbar-btn { padding: 4px 12px; font-size: 0.65rem; }
+            .infographic-box { padding: 12px; }
+            .infographic-box .flow-item { min-width: 60px; padding: 6px 10px; }
+        }
+        
+        @media (max-width: 480px) {
+            .slide { padding: 12px 12px; }
+            .slide-title { font-size: 1.4rem; }
+            .slide-subtitle { font-size: 0.85rem; margin-bottom: 8px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 8px; }
+            .card { padding: 10px 12px; border-radius: 12px; }
+            .badge-vu { font-size: 0.6rem; padding: 3px 12px; }
+            .nav-btn { padding: 4px 12px; font-size: 0.65rem; }
+            .slide-counter { font-size: 0.65rem; padding: 3px 12px; }
+        }
+        
+        @media (max-height: 700px) {
+            .slide { padding: 14px 24px; }
+            .slide-title { font-size: 1.8rem; }
+            .slide-subtitle { font-size: 0.85rem; margin-bottom: 8px; }
+            .card { padding: 10px 14px; }
+            .card h4 { font-size: 0.85rem; }
+            .card p, .card li { font-size: 0.75rem; }
+            .stat-number { font-size: 1.6rem; }
+            .logo-row { margin: 6px 0 10px; gap: 8px; }
+            .logo-item { padding: 4px 12px; font-size: 0.7rem; }
+            .grid-2, .grid-3 { gap: 12px; }
+            .nav-controls { padding-top: 8px; }
+            .toolbar { padding-top: 6px; }
+            .infographic-box { padding: 12px; }
+        }
+        
+        @media (max-height: 550px) {
+            .slide { padding: 10px 16px; }
+            .slide-title { font-size: 1.4rem; }
+            .slide-subtitle { font-size: 0.75rem; margin-bottom: 4px; }
+            .card { padding: 6px 10px; border-radius: 10px; }
+            .card h4 { font-size: 0.75rem; margin-bottom: 2px; }
+            .card p, .card li { font-size: 0.68rem; line-height: 1.3; }
+            .stat-number { font-size: 1.2rem; }
+            .grid-2, .grid-3 { gap: 8px; }
+            .logo-row { margin: 4px 0 6px; gap: 4px; }
+            .logo-item { padding: 2px 10px; font-size: 0.6rem; }
+            .list-icon li { padding: 2px 0; }
+            .slide-footer { padding-top: 6px; font-size: 0.6rem; }
+            .badge-vu { font-size: 0.5rem; padding: 2px 10px; margin-bottom: 4px; }
+            .nav-btn { padding: 4px 12px; font-size: 0.6rem; }
+            .toolbar-btn { padding: 3px 10px; font-size: 0.6rem; }
+            .infographic-box { padding: 8px; }
+            .infographic-box .flow-item { padding: 4px 8px; min-width: 50px; }
+            .infographic-box .flow-item i { font-size: 1rem; }
+            .infographic-box .flow-item h5 { font-size: 0.65rem; }
+            .infographic-box .flow-item p { font-size: 0.55rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-wrapper">
+    <div class="slide-viewport">
+        <div class="slides-container" id="slidesContainer">
+            
+            <!-- SLIDE 1: COVER -->
+            <div class="slide slide-brand" data-index="0">
+                <div style="display:flex; flex-direction:column; height:100%;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; flex-shrink:0;">
+                        <div class="vu-logo">
+                            <div class="logo-icon">VU</div>
+                            <div class="logo-text">VICTORIA <span>UNIVERSITY</span></div>
+                        </div>
+                        <div style="text-align:right; font-size:0.7rem; opacity:0.6;">
+                            <div>Faculty of Science and Technology</div>
+                            <div>CBR601 | 14 June 2026</div>
+                        </div>
+                    </div>
+                    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding:8px 0;">
+                        <div style="font-size:0.75rem; font-weight:600; letter-spacing:2px; color:#c89b3c; margin-bottom:4px;">GROUP PROJECT REPORT</div>
+                        <h1 class="slide-title" style="font-size:3.8rem; max-width:900px; line-height:1.05;">Digital Technologies<br/>for Climate Action</h1>
+                        <div style="font-size:1.4rem; font-weight:300; opacity:0.9; margin:6px 0 14px;">"For the Climate, For Our Future"</div>
+                        <div style="display:flex; flex-wrap:wrap; gap:4px 12px; font-size:0.75rem; background:rgba(255,255,255,0.04); padding:10px 18px; border-radius:40px; backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.06);">
+                            <span><i class="fas fa-user-graduate" style="color:#c89b3c;"></i> Namtovu H. (L)</span>
+                            <span><i class="fas fa-user-graduate"></i> Omolo I.V.</span>
+                            <span><i class="fas fa-user-graduate"></i> Waligo S.</span>
+                            <span><i class="fas fa-user-graduate"></i> Nsubuga T.</span>
+                            <span><i class="fas fa-user-graduate"></i> Amal A.A.</span>
+                            <span><i class="fas fa-user-graduate"></i> Etomet P.</span>
+                            <span><i class="fas fa-user-graduate"></i> Ntabadde V.T.</span>
+                            <span><i class="fas fa-user-graduate"></i> Nadia S.A.</span>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.65rem; opacity:0.4; border-top:1px solid rgba(255,255,255,0.06); padding-top:10px; flex-shrink:0;">
+                        <span>World Environment Day 2026</span>
+                        <span>#ClimateAction #DigitalForFuture</span>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>1 / 20</span><span>Victoria University</span></div>
+            </div>
+
+            <!-- SLIDE 2: ROADMAP -->
+            <div class="slide" data-index="1">
+                <div class="vu-logo" style="margin-bottom:8px;">
+                    <div class="logo-icon" style="width:32px;height:32px;font-size:0.9rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.75rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2.2rem;">Presentation Roadmap</h2>
+                <div class="slide-subtitle">Navigating our climate & digital journey</div>
+                <div class="grid-3" style="margin-top:10px; flex:1;">
+                    <div class="card"><i class="fas fa-globe-africa" style="font-size:1.4rem;color:#c89b3c;"></i><h4>Context</h4><p>Climate change overview · Why IT matters</p></div>
+                    <div class="card"><i class="fas fa-microchip" style="font-size:1.4rem;color:#c89b3c;"></i><h4>IT & Climate</h4><p>Contributions · Solutions · Impacts on IT</p></div>
+                    <div class="card"><i class="fas fa-chart-line" style="font-size:1.4rem;color:#c89b3c;"></i><h4>Case Studies</h4><p>Uganda & Global · Adaptation & Mitigation</p></div>
+                    <div class="card"><i class="fas fa-robot" style="font-size:1.4rem;color:#c89b3c;"></i><h4>Innovation</h4><p>AI · IoT · Big Data · UCIP Platform</p></div>
+                    <div class="card"><i class="fas fa-bullhorn" style="font-size:1.4rem;color:#c89b3c;"></i><h4>Recommendations</h4><p>Government · Business · Education · Students</p></div>
+                    <div class="card"><i class="fas fa-handshake" style="font-size:1.4rem;color:#c89b3c;"></i><h4>Closing</h4><p>Thank you & Q&A</p></div>
+                </div>
+                <div class="slide-footer"><span>2 / 20</span><span>Roadmap</span></div>
+            </div>
+
+            <!-- SLIDE 3: CLIMATE CHANGE OVERVIEW -->
+            <div class="slide" data-index="2">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2.2rem;">Climate Change Overview</h2>
+                <div class="slide-subtitle">The defining challenge of our century</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><span class="stat-number">1.45°C</span><p style="font-weight:500; font-size:0.85rem;">above pre-industrial levels<br/><span style="font-size:0.75rem;color:#5b6f83;">2023 — hottest year on record (WMO, 2024)</span></p></div>
+                        <div class="card mt-1"><i class="fas fa-exclamation-triangle" style="color:#c89b3c;"></i><h4>Key Drivers</h4><ul class="list-icon"><li><i class="fas fa-bolt"></i> Fossil fuel combustion</li><li><i class="fas fa-tree"></i> Deforestation</li><li><i class="fas fa-industry"></i> Industrialization</li><li><i class="fas fa-tractor"></i> Unsustainable agriculture</li></ul></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-water" style="color:#c89b3c;"></i><h4>Consequences</h4><ul class="list-icon"><li><i class="fas fa-temperature-high"></i> Rising global temperatures</li><li><i class="fas fa-cloud-rain"></i> Extreme weather (floods, droughts)</li><li><i class="fas fa-seedling"></i> Biodiversity loss</li><li><i class="fas fa-utensils"></i> Food insecurity</li></ul></div>
+                        <div class="card mt-1"><i class="fas fa-bullseye"></i><h4>Paris Agreement Threshold</h4><p style="font-size:0.85rem;"><strong>1.5°C</strong> — urgent action needed to avoid severe, irreversible impacts.</p></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>3 / 20</span><span>Climate Context</span></div>
+            </div>
+
+            <!-- SLIDE 4: WHY IT MATTERS -->
+            <div class="slide" data-index="3">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2.2rem;">Why Information Technology Matters</h2>
+                <div class="slide-subtitle">Digital as an enabler for climate action</div>
+                <div class="grid-3" style="flex:1;">
+                    <div class="card"><i class="fas fa-satellite" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Monitoring</h4><p>Real-time environmental data from satellites, sensors, and IoT networks.</p></div>
+                    <div class="card"><i class="fas fa-brain" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Intelligence</h4><p>AI & Big Data turn raw data into actionable climate insights.</p></div>
+                    <div class="card"><i class="fas fa-cloud-upload-alt" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Collaboration</h4><p>Cloud platforms enable global cooperation & information sharing.</p></div>
+                    <div class="card"><i class="fas fa-shield-alt" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Resilience</h4><p>Early warning systems & disaster response coordination.</p></div>
+                    <div class="card"><i class="fas fa-leaf" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Sustainability</h4><p>Smart energy, precision agriculture, carbon tracking.</p></div>
+                    <div class="card"><i class="fas fa-users" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Empowerment</h4><p>Communities and governments make evidence-based decisions.</p></div>
+                </div>
+                <div class="slide-footer"><span>4 / 20</span><span>Why IT Matters</span></div>
+            </div>
+
+            <!-- SLIDE 5: IT CONTRIBUTIONS TO CLIMATE CHANGE -->
+            <div class="slide" data-index="4">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">IT Contributions to Climate Change</h2>
+                <div class="slide-subtitle">The carbon footprint of digitalization</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><span class="stat-number">2–4%</span><p style="font-weight:500; font-size:0.85rem;">Global GHG emissions from ICT sector<br/><span style="font-size:0.75rem;color:#5b6f83;">Source: IEA, 2024</span></p></div>
+                        <div class="card mt-1"><i class="fas fa-database"></i><h4>Energy-Intensive Data Centres</h4><p style="font-size:0.82rem;">Cooling & power consumption are major contributors to emissions.</p></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-list"></i><h4>Major Contributors</h4><ul class="list-icon"><li><i class="fas fa-server"></i> Data centres & cloud computing</li><li><i class="fas fa-mobile-alt"></i> Device manufacturing & e-waste</li><li><i class="fas fa-bitcoin"></i> Cryptocurrency mining</li><li><i class="fas fa-robot"></i> AI model training (high compute)</li><li><i class="fas fa-globe"></i> Network infrastructure</li></ul></div>
+                        <div class="card mt-1"><i class="fas fa-recycle"></i><h4>E-waste Challenge</h4><p style="font-size:0.82rem;">Uganda faces limited recycling infrastructure — urgent policy needed.</p></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>5 / 20</span><span>IT Carbon Footprint</span></div>
+            </div>
+
+            <!-- SLIDE 6: IT AS A CLIMATE SOLUTION -->
+            <div class="slide" data-index="5">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">IT as a Climate Solution</h2>
+                <div class="slide-subtitle">Transformative opportunities for climate action</div>
+                <div class="grid-3" style="flex:1;">
+                    <div class="card"><i class="fas fa-cloud-sun"></i><h4>Climate Monitoring</h4><p>Satellite & ground-based systems track environmental changes.</p></div>
+                    <div class="card"><i class="fas fa-bolt"></i><h4>Smart Energy</h4><p>Grid optimization & renewable energy integration.</p></div>
+                    <div class="card"><i class="fas fa-tachometer-alt"></i><h4>Early Warning</h4><p>Flood, drought, wildfire prediction saves lives.</p></div>
+                    <div class="card"><i class="fas fa-seedling"></i><h4>Precision Agriculture</h4><p>IoT sensors & mobile advisory for farmers.</p></div>
+                    <div class="card"><i class="fas fa-car"></i><h4>Sustainable Transport</h4><p>EV routing & logistics optimization.</p></div>
+                    <div class="card"><i class="fas fa-home"></i><h4>Remote Work</h4><p>Reduced travel & associated emissions.</p></div>
+                </div>
+                <div class="slide-footer"><span>6 / 20</span><span>IT Solutions</span></div>
+            </div>
+
+            <!-- SLIDE 7: CLIMATE IMPACTS ON IT -->
+            <div class="slide" data-index="6">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Climate Change Impacts on IT</h2>
+                <div class="slide-subtitle">Vulnerabilities in the digital ecosystem</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><i class="fas fa-thermometer-half"></i><h4>Increased Energy Demand</h4><p style="font-size:0.82rem;">Rising temperatures increase cooling costs for data centres.</p></div>
+                        <div class="card mt-1"><i class="fas fa-flood"></i><h4>Physical Damage</h4><p style="font-size:0.82rem;">Floods, storms, wildfires threaten critical infrastructure.</p></div>
+                        <div class="card mt-1"><i class="fas fa-trash-alt"></i><h4>E-waste</h4><p style="font-size:0.82rem;">Shortened device lifecycles increase pollution.</p></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-shield-virus"></i><h4>Cybersecurity Risks</h4><p style="font-size:0.82rem;">Attacks during emergencies, data breaches, infrastructure sabotage.</p></div>
+                        <div class="card mt-1"><i class="fas fa-truck"></i><h4>Supply Chain Disruptions</h4><p style="font-size:0.82rem;">Semiconductor manufacturing affected by water scarcity & droughts.</p></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>7 / 20</span><span>Impacts on IT</span></div>
+            </div>
+
+            <!-- SLIDE 8: FIGURE 1 - IT & Climate Action Relationship -->
+            <div class="slide slide-dark" data-index="7">
+                <div style="display:flex; flex-direction:column; height:100%;">
+                    <div class="vu-logo" style="margin-bottom:6px; flex-shrink:0;">
+                        <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem; background:#c89b3c; color:#0b1a2f;">VU</div>
+                        <div class="logo-text" style="font-size:0.7rem; color:#fff;">VICTORIA <span>UNIVERSITY</span></div>
+                    </div>
+                    <h2 style="font-size:1.8rem; color:#fff; text-align:center; flex-shrink:0;">Figure 1: IT & Climate Action Relationship</h2>
+                    <div class="infographic-box" style="flex:1; background:rgba(255,255,255,0.02); border-color:rgba(255,255,255,0.06);">
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; gap:8px; width:100%; max-width:1000px; margin:4px 0;">
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-exclamation-triangle" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.75rem;">Climate Challenges</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Rising temps · Extreme weather</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-satellite" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.75rem;">Data Collection</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">IoT · Satellites · Mobile</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-microchip" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.75rem;">Data Processing</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">AI · Big Data · Cloud · GIS</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-chart-pie" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.75rem;">Decision Support</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Dashboards · Forecasts · Alerts</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-leaf" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.75rem;">Climate Action</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Adaptation · Mitigation</p>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:4px; color:#a0b8c8; font-size:0.7rem;">
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Real-time data</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Meaningful insights</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Evidence-based decisions</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Sustainable future</span>
+                        </div>
+                        <div style="margin-top:6px; font-size:0.65rem; opacity:0.4;">Source: Group analysis, 2026</div>
+                    </div>
+                    <div class="slide-footer" style="border-color:rgba(255,255,255,0.05);"><span>8 / 20</span><span>Figure 1</span></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: UGANDAN CASE STUDIES -->
+            <div class="slide" data-index="8">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Ugandan Case Studies</h2>
+                <div class="slide-subtitle">Local digital climate action in practice</div>
+                <div class="logo-row">
+                    <span class="logo-item"><i class="fas fa-cloud-sun"></i> UNMA</span>
+                    <span class="logo-item"><i class="fas fa-city"></i> KCCA</span>
+                    <span class="logo-item"><i class="fas fa-tree"></i> NFA</span>
+                    <span class="logo-item"><i class="fas fa-water"></i> NWSC</span>
+                </div>
+                <div class="grid-2" style="flex:1;">
+                    <div class="card"><i class="fas fa-cloud-sun-rain"></i><h4>UNMA</h4><p style="font-size:0.8rem;">Satellite imagery, automated weather stations, mobile alerts for flood & drought preparedness.</p></div>
+                    <div class="card"><i class="fas fa-map-marked-alt"></i><h4>KCCA</h4><p style="font-size:0.8rem;">GIS for flood mapping, traffic management, waste optimization & urban planning.</p></div>
+                    <div class="card"><i class="fas fa-tree"></i><h4>NFA</h4><p style="font-size:0.8rem;">Satellite & GIS monitor illegal logging, forest degradation, conservation efforts.</p></div>
+                    <div class="card"><i class="fas fa-water"></i><h4>NWSC</h4><p style="font-size:0.8rem;">Smart metering & digital monitoring reduce water wastage and improve efficiency.</p></div>
+                </div>
+                <div class="card mt-1" style="flex-shrink:0;"><i class="fas fa-mobile-alt"></i> <strong>Precision Agriculture</strong> — Farmers use IoT sensors & mobile apps for soil, weather, crop disease monitoring.</div>
+                <div class="slide-footer"><span>9 / 20</span><span>Uganda Case Studies</span></div>
+            </div>
+
+            <!-- SLIDE 10: GLOBAL CASE STUDIES -->
+            <div class="slide" data-index="9">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Global Case Studies</h2>
+                <div class="slide-subtitle">Tech giants leading climate action</div>
+                <div class="grid-2" style="flex:1;">
+                    <div class="card"><i class="fab fa-google" style="font-size:2rem;color:#c89b3c;"></i><h4>Google DeepMind AI</h4><p style="font-size:0.82rem;">AI optimizes data centre cooling → <span class="stat-number" style="font-size:1.6rem;">40%</span> energy reduction.</p><p style="font-size:0.75rem;color:#5b6f83;"><em>Critical: AI compute must be powered by renewable energy.</em></p></div>
+                    <div class="card"><i class="fab fa-microsoft" style="font-size:2rem;color:#c89b3c;"></i><h4>Microsoft Carbon Negative</h4><p style="font-size:0.82rem;">Committed to carbon negative by 2030 — renewable energy, AI sustainability tools, carbon accounting.</p></div>
+                </div>
+                <div class="card mt-1" style="flex-shrink:0;"><i class="fas fa-globe"></i><h4>Global Impact</h4><p style="font-size:0.82rem;">Demonstrates that economic growth & environmental sustainability can align.</p></div>
+                <div class="slide-footer"><span>10 / 20</span><span>Global Case Studies</span></div>
+            </div>
+
+            <!-- SLIDE 11: ADAPTATION STRATEGIES -->
+            <div class="slide" data-index="10">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Adaptation Strategies</h2>
+                <div class="slide-subtitle">Building resilience with digital technologies</div>
+                <div class="grid-3" style="flex:1;">
+                    <div class="card"><i class="fas fa-server"></i><h4>Green Data Centres</h4><p style="font-size:0.8rem;">Renewable energy, efficient cooling, virtualization.</p></div>
+                    <div class="card"><i class="fas fa-cloud"></i><h4>Cloud Computing</h4><p style="font-size:0.8rem;">Reduces hardware, improves resource utilization.</p></div>
+                    <div class="card"><i class="fas fa-recycle"></i><h4>Circular Economy</h4><p style="font-size:0.8rem;">Repair, reuse, recycle electronics.</p></div>
+                    <div class="card"><i class="fas fa-microchip"></i><h4>Smart Monitoring</h4><p style="font-size:0.8rem;">IoT sensors for air, water, soil, forests.</p></div>
+                    <div class="card"><i class="fas fa-laptop-house"></i><h4>Digital Workplaces</h4><p style="font-size:0.8rem;">Remote work, virtual meetings, paperless.</p></div>
+                </div>
+                <div class="slide-footer"><span>11 / 20</span><span>Adaptation</span></div>
+            </div>
+
+            <!-- SLIDE 12: MITIGATION STRATEGIES -->
+            <div class="slide" data-index="11">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Mitigation Strategies</h2>
+                <div class="slide-subtitle">Reducing IT's carbon footprint</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><i class="fas fa-solar-panel"></i><h4>Renewable Energy</h4><p style="font-size:0.82rem;">Power data centres & networks with solar, wind, hydro.</p></div>
+                        <div class="card mt-1"><i class="fas fa-chart-pie"></i><h4>Carbon Tracking</h4><p style="font-size:0.82rem;">Digital tools for emission monitoring & reporting.</p></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-code"></i><h4>Efficient Software</h4><p style="font-size:0.82rem;">Optimize algorithms to reduce computational requirements.</p></div>
+                        <div class="card mt-1"><i class="fas fa-undo-alt"></i><h4>E-waste Management</h4><p style="font-size:0.82rem;">National policies & extended producer responsibility.</p></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>12 / 20</span><span>Mitigation</span></div>
+            </div>
+
+            <!-- SLIDE 13: INNOVATIVE TECHNOLOGIES -->
+            <div class="slide" data-index="12">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Innovative Technologies</h2>
+                <div class="slide-subtitle">Future-proof climate solutions</div>
+                <div class="grid-3" style="flex:1;">
+                    <div class="card"><i class="fas fa-robot" style="font-size:1.6rem;color:#c89b3c;"></i><h4>AI & Machine Learning</h4><p style="font-size:0.8rem;">Predict floods, droughts, wildfires; optimize resources.</p></div>
+                    <div class="card"><i class="fas fa-wifi" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Internet of Things (IoT)</h4><p style="font-size:0.8rem;">Smart cities, precision agriculture, real-time monitoring.</p></div>
+                    <div class="card"><i class="fas fa-link" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Blockchain</h4><p style="font-size:0.8rem;">Transparent carbon credits, secure environmental records.</p></div>
+                    <div class="card"><i class="fas fa-chart-bar" style="font-size:1.6rem;color:#c89b3c;"></i><h4>Big Data Analytics</h4><p style="font-size:0.8rem;">Climate modelling, policy development, resource allocation.</p></div>
+                </div>
+                <div class="slide-footer"><span>13 / 20</span><span>Innovation</span></div>
+            </div>
+
+            <!-- SLIDE 14: AI, IoT & BIG DATA -->
+            <div class="slide" data-index="13">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">AI, IoT & Big Data in Action</h2>
+                <div class="slide-subtitle">Convergence for climate intelligence</div>
+                <div class="grid-3" style="flex:1;">
+                    <div class="card"><i class="fas fa-brain"></i><h4>AI for Prediction</h4><ul class="list-icon"><li><i class="fas fa-water"></i> Flood forecasting</li><li><i class="fas fa-tint"></i> Drought early warning</li><li><i class="fas fa-fire"></i> Wildfire risk</li></ul></div>
+                    <div class="card"><i class="fas fa-microchip"></i><h4>IoT Sensors</h4><ul class="list-icon"><li><i class="fas fa-wind"></i> Air quality</li><li><i class="fas fa-tachometer-alt"></i> Soil moisture</li><li><i class="fas fa-tree"></i> Forest health</li></ul></div>
+                    <div class="card"><i class="fas fa-database"></i><h4>Big Data Analytics</h4><ul class="list-icon"><li><i class="fas fa-chart-line"></i> Climate trends</li><li><i class="fas fa-globe"></i> Policy insights</li><li><i class="fas fa-hand-holding-heart"></i> Resource optimization</li></ul></div>
+                </div>
+                <div class="slide-footer"><span>14 / 20</span><span>AI, IoT & Big Data</span></div>
+            </div>
+
+            <!-- SLIDE 15: UCIP PLATFORM -->
+            <div class="slide" data-index="14">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Uganda Climate Intelligence Platform</h2>
+                <div class="slide-subtitle">A centralized digital ecosystem for climate action</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><i class="fas fa-cloud-upload-alt"></i><h4>Data Input Layer</h4><p style="font-size:0.8rem;">Satellite, weather stations, IoT sensors, community reporting</p></div>
+                        <div class="card mt-1"><i class="fas fa-cogs"></i><h4>Processing Layer</h4><p style="font-size:0.8rem;">AI, Machine Learning, Big Data, Cloud Computing</p></div>
+                        <div class="card mt-1"><i class="fas fa-layer-group"></i><h4>Application Layer</h4><p style="font-size:0.8rem;">Flood/drought prediction, carbon calculators, agri-advisory</p></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-users"></i><h4>User Layer</h4><p style="font-size:0.8rem;">Government, farmers, businesses, NGOs, researchers, communities</p></div>
+                        <div class="card mt-1"><i class="fas fa-check-circle" style="color:#c89b3c;"></i><h4>Expected Benefits</h4><ul class="list-icon"><li><i class="fas fa-shield-alt"></i> Disaster preparedness</li><li><i class="fas fa-utensils"></i> Food security</li><li><i class="fas fa-leaf"></i> Environmental governance</li></ul></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>15 / 20</span><span>UCIP Platform</span></div>
+            </div>
+
+            <!-- SLIDE 16: FIGURE 2 - UCIP Architecture -->
+            <div class="slide slide-dark" data-index="15">
+                <div style="display:flex; flex-direction:column; height:100%;">
+                    <div class="vu-logo" style="margin-bottom:6px; flex-shrink:0;">
+                        <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem; background:#c89b3c; color:#0b1a2f;">VU</div>
+                        <div class="logo-text" style="font-size:0.7rem; color:#fff;">VICTORIA <span>UNIVERSITY</span></div>
+                    </div>
+                    <h2 style="font-size:1.8rem; color:#fff; text-align:center; flex-shrink:0;">Figure 2: UCIP Architecture</h2>
+                    <div class="infographic-box" style="flex:1; background:rgba(255,255,255,0.02); border-color:rgba(255,255,255,0.06);">
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; width:100%; max-width:900px; margin:4px 0;">
+                            <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-satellite" style="font-size:1.8rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.8rem;">Data Sources</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Satellite · Weather · IoT · Reports</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-cogs" style="font-size:1.8rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.8rem;">Processing & Analytics</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">AI · ML · Big Data · Cloud</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-layer-group" style="font-size:1.8rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.8rem;">Application Services</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Prediction · Advisory · Alerts</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-users" style="font-size:1.8rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.8rem;">End Users</h5>
+                                <p style="color:#9ab0c0; font-size:0.6rem;">Govt · Farmers · NGOs · Researchers</p>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:4px; color:#90a8b8; font-size:0.7rem;">
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Evidence-based decisions</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Improved resilience</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Sustainable development</span>
+                        </div>
+                        <div style="margin-top:6px; font-size:0.65rem; opacity:0.4;">Source: Group proposal, 2026</div>
+                    </div>
+                    <div class="slide-footer" style="border-color:rgba(255,255,255,0.05);"><span>16 / 20</span><span>Figure 2</span></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 17: EXPECTED BENEFITS -->
+            <div class="slide" data-index="16">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Expected Benefits of UCIP</h2>
+                <div class="slide-subtitle">A resilient, data-driven Uganda</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><i class="fas fa-exclamation-triangle" style="color:#c89b3c;"></i><h4>Disaster Preparedness</h4><p style="font-size:0.82rem;">Early warning systems reduce loss of life & property.</p></div>
+                        <div class="card mt-1"><i class="fas fa-seedling"></i><h4>Food Security</h4><p style="font-size:0.82rem;">Precision agriculture & weather advisory for farmers.</p></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-gavel"></i><h4>Environmental Governance</h4><p style="font-size:0.82rem;">Transparent data for policy development & enforcement.</p></div>
+                        <div class="card mt-1"><i class="fas fa-chart-line"></i><h4>Economic Resilience</h4><p style="font-size:0.82rem;">Reduced climate-related economic losses.</p></div>
+                    </div>
+                </div>
+                <div class="card mt-1" style="flex-shrink:0;"><i class="fas fa-bullseye"></i> <strong>Vision:</strong> A climate-smart Uganda powered by digital innovation.</div>
+                <div class="slide-footer"><span>17 / 20</span><span>Benefits</span></div>
+            </div>
+
+            <!-- SLIDE 18: RECOMMENDATIONS -->
+            <div class="slide" data-index="17">
+                <div class="vu-logo" style="margin-bottom:6px;">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem;">VU</div>
+                    <div class="logo-text" style="font-size:0.7rem;">VICTORIA <span>UNIVERSITY</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size:2rem;">Recommendations</h2>
+                <div class="slide-subtitle">Pathways to effective climate action</div>
+                <div class="grid-2" style="flex:1;">
+                    <div>
+                        <div class="card"><i class="fas fa-government"></i><h4>Government</h4><ul class="list-icon"><li><i class="fas fa-check"></i> Invest in climate digital infrastructure</li><li><i class="fas fa-check"></i> Strengthen national climate data systems</li><li><i class="fas fa-check"></i> Establish e-waste management policies</li></ul></div>
+                        <div class="card mt-1"><i class="fas fa-graduation-cap"></i><h4>Educational Institutions</h4><ul class="list-icon"><li><i class="fas fa-check"></i> Integrate climate tech in curricula</li><li><i class="fas fa-check"></i> Establish innovation labs & competitions</li></ul></div>
+                    </div>
+                    <div>
+                        <div class="card"><i class="fas fa-building"></i><h4>Businesses</h4><ul class="list-icon"><li><i class="fas fa-check"></i> Adopt Green IT practices</li><li><i class="fas fa-check"></i> Conduct carbon footprint assessments</li></ul></div>
+                        <div class="card mt-1"><i class="fas fa-user-graduate"></i><h4>Students & Future Professionals</h4><ul class="list-icon"><li><i class="fas fa-check"></i> Develop sustainable digital solutions</li><li><i class="fas fa-check"></i> Advocate for responsible technology</li></ul></div>
+                    </div>
+                </div>
+                <div class="slide-footer"><span>18 / 20</span><span>Recommendations</span></div>
+            </div>
+
+            <!-- SLIDE 19: FIGURE 3 - IT in Climate Resilience -->
+            <div class="slide slide-dark" data-index="18">
+                <div style="display:flex; flex-direction:column; height:100%;">
+                    <div class="vu-logo" style="margin-bottom:6px; flex-shrink:0;">
+                        <div class="logo-icon" style="width:28px;height:28px;font-size:0.8rem; background:#c89b3c; color:#0b1a2f;">VU</div>
+                        <div class="logo-text" style="font-size:0.7rem; color:#fff;">VICTORIA <span>UNIVERSITY</span></div>
+                    </div>
+                    <h2 style="font-size:1.8rem; color:#fff; text-align:center; flex-shrink:0;">Figure 3: IT in Climate Resilience</h2>
+                    <div class="infographic-box" style="flex:1; background:rgba(255,255,255,0.02); border-color:rgba(255,255,255,0.06);">
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; width:100%; max-width:900px; margin:4px 0;">
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-laptop" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Information Technology</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Digital tools & infrastructure</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-database" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Data Collection</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Real-time data gathering</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-chart-line" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Data Analytics</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Processing & analysis</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-lightbulb" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Decision Support</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Insights into actions</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-shield-alt" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Climate Adaptation</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Reducing vulnerabilities</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-leaf" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Climate Mitigation</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Reducing emissions</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-seedling" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Sustainable Future</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Resilient communities</p>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.04);">
+                                <i class="fas fa-sync-alt" style="font-size:1.6rem; color:#c89b3c;"></i>
+                                <h5 style="color:#fff; margin-top:4px; font-size:0.7rem;">Continuous Improvement</h5>
+                                <p style="color:#9ab0c0; font-size:0.55rem;">Feedback & innovation</p>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:4px; color:#90a8b8; font-size:0.7rem;">
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Climate Resilience</span>
+                            <span><i class="fas fa-arrow-right" style="color:#c89b3c;"></i> Sustainable & Resilient Future</span>
+                        </div>
+                        <div style="margin-top:6px; font-size:0.65rem; opacity:0.4;">Source: Group analysis, 2026</div>
+                    </div>
+                    <div class="slide-footer" style="border-color:rgba(255,255,255,0.05);"><span>19 / 20</span><span>Figure 3</span></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 20: VIDEO - CLIMATE RESPONSE -->
+            <div class="slide slide-dark" data-index="19" style="justify-content:center; align-items:center; text-align:center; padding:12px 20px;">
+                <div style="display:flex; flex-direction:column; height:100%; width:100%;">
+                    <div class="vu-logo" style="margin-bottom:4px; flex-shrink:0; justify-content:center;">
+                        <div class="logo-icon" style="width:24px;height:24px;font-size:0.7rem; background:#c89b3c; color:#0b1a2f;">VU</div>
+                        <div class="logo-text" style="font-size:0.65rem; color:#fff;">VICTORIA <span>UNIVERSITY</span></div>
+                    </div>
+                    <h2 style="font-size:1.4rem; color:#fff; margin-bottom:4px; flex-shrink:0;">Climate Response - IT</h2>
+                    <div style="flex:1; width:100%; max-width:800px; margin:0 auto; display:flex; align-items:center; justify-content:center; flex-direction:column; min-height:0;">
+                        <div style="position:relative; padding-bottom:50%; height:0; width:100%; overflow:hidden; border-radius:12px; box-shadow:0 6px 24px rgba(0,0,0,0.4); background:#000;">
+                            <iframe 
+                                style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+                                src="https://www.youtube.com/embed/Hi7owrvZktU?rel=0&modestbranding=1&autoplay=0&enablejsapi=1"
+                                title="Climate Response - IT"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div style="margin-top:6px; font-size:0.7rem; opacity:0.6; flex-shrink:0; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+                            <span><i class="fas fa-play" style="color:#c89b3c;"></i> Click play to watch</span>
+                            <span><i class="fas fa-expand" style="color:#c89b3c;"></i> Fullscreen available</span>
+                            <span><i class="fas fa-link" style="color:#c89b3c;"></i> <a href="https://youtu.be/Hi7owrvZktU" target="_blank" style="color:#c89b3c; text-decoration:none;">Open in YouTube</a></span>
+                        </div>
+                    </div>
+                    <div class="slide-footer" style="border-color:rgba(255,255,255,0.05); padding-top:6px; font-size:0.6rem;"><span>20 / 21</span><span>Video</span></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 21: CLOSING -->
+            <div class="slide slide-brand" data-index="19" style="justify-content:center; align-items:center; text-align:center;">
+                <div style="max-width:600px;">
+                    <div class="vu-logo" style="justify-content:center; margin-bottom:12px;">
+                        <div class="logo-icon" style="width:50px;height:50px;font-size:1.4rem; background:#c89b3c; color:#0b1a2f;">VU</div>
+                        <div class="logo-text" style="font-size:1rem; color:#fff;">VICTORIA <span>UNIVERSITY</span></div>
+                    </div>
+                    <i class="fas fa-leaf" style="font-size:3rem; color:#c89b3c; margin-bottom:8px; display:block;"></i>
+                    <h1 class="slide-title" style="font-size:3.2rem;">Thank You</h1>
+                    <div style="font-size:1.4rem; font-weight:300; margin:4px 0 20px;">For the Climate, For Our Future</div>
+                    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px; font-size:0.95rem; background:rgba(255,255,255,0.03); padding:14px 24px; border-radius:50px; backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.04);">
+                        <span><i class="fas fa-envelope" style="color:#c89b3c;"></i> info@vu.ac.ug</span>
+                        <span><i class="fas fa-globe"></i> www.vu.ac.ug</span>
+                        <span><i class="fas fa-phone"></i> +256 414 123 456</span>
+                    </div>
+                    <div style="margin-top:28px; border-top:1px solid rgba(255,255,255,0.06); padding-top:20px; font-size:0.85rem; opacity:0.6;">
+                        <i class="fas fa-question-circle" style="color:#c89b3c;"></i> Questions & Discussion
+                    </div>
+                </div>
+                <div class="slide-footer" style="border-color:rgba(255,255,255,0.05);"><span>20 / 20</span><span>Closing</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+        <span class="slide-counter" id="slideCounter">1 / 20</span>
+        <button class="nav-btn" id="nextBtn">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+    
+    <div class="toolbar">
+        <button class="toolbar-btn" id="toggleNotesBtn"><i class="fas fa-comment-dots"></i> Speaker Notes</button>
+        <button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Print / PDF</button>
+        <button class="toolbar-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const container = document.getElementById('slidesContainer');
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        let notesVisible = false;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('slideCounter');
+
+        function updateSlide() {
+            container.style.transform = `translateX(-${current * 100}%)`;
+            counter.textContent = `${current + 1} / ${total}`;
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === total - 1;
+            
+            document.querySelectorAll('.speaker-note').forEach(el => el.classList.remove('show'));
+            if (notesVisible) {
+                const currentSlide = slides[current];
+                let note = currentSlide.querySelector('.speaker-note');
+                if (note) note.classList.add('show');
+            }
+        }
+
+        prevBtn.addEventListener('click', () => { if (current > 0) { current--; updateSlide(); } });
+        nextBtn.addEventListener('click', () => { if (current < total - 1) { current++; updateSlide(); } });
+
+        // Touch support
+        let touchStartX = 0;
+        const viewport = document.querySelector('.slide-viewport');
+        viewport.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        viewport.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && current < total - 1) { current++; updateSlide(); }
+                else if (diff < 0 && current > 0) { current--; updateSlide(); }
+            }
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (current < total - 1) { current++; updateSlide(); }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (current > 0) { current--; updateSlide(); }
+            }
+        });
+
+        // Speaker Notes
+        document.getElementById('toggleNotesBtn').addEventListener('click', function() {
+            notesVisible = !notesVisible;
+            const currentSlide = slides[current];
+            let note = currentSlide.querySelector('.speaker-note');
+            
+            if (!note && notesVisible) {
+                note = document.createElement('div');
+                note.className = 'speaker-note show';
+                note.innerHTML = `<i class="fas fa-microphone-alt" style="color:#c89b3c; margin-right:8px;"></i> <strong>Speaker Note:</strong> Add your talking points for this slide.`;
+                currentSlide.appendChild(note);
+            } else if (note) {
+                note.classList.toggle('show');
+            }
+            this.innerHTML = notesVisible ? '<i class="fas fa-comment-dots"></i> Hide Notes' : '<i class="fas fa-comment-dots"></i> Speaker Notes';
+        });
+
+        // Fullscreen
+        document.getElementById('fullscreenBtn').addEventListener('click', function() {
+            const el = document.querySelector('.presentation-wrapper');
+            if (el.requestFullscreen) {
+                el.requestFullscreen();
+            } else if (el.webkitRequestFullscreen) {
+                el.webkitRequestFullscreen();
+            }
+        });
+
+        updateSlide();
+    })();
+</script>
+
+</body>
+</html>
